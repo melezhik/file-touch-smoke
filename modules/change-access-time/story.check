@@ -1,0 +1,14 @@
+regexp: timestamp\s+before\s+(\d+)
+code: our $at = capture()->[0]
+
+regexp: timestamp\s+after\s+(\d+)
+code: our $bt = capture()->[0]
+
+
+generator: <<P
+  our $at; our $bt;
+  my $st = (($bt - $at) == 30);
+ [ "assert: $st access time changed +30 seconds"]
+
+P
+
