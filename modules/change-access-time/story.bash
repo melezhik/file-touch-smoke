@@ -1,10 +1,13 @@
 rm -rf /tmp/new.txt || exit 1
 touch /tmp/new.txt || exit 1
 
-stat -c %x /tmp/new.txt
+stat /tmp/new.txt
 
-echo -n timestamp before ' '
+echo -n access time before ' '
 stat -c %X /tmp/new.txt
+
+echo -n modification time before ' '
+stat -c %Y /tmp/new.txt
 
 
 perl -MFile::stat -MFile::Touch -e '
@@ -15,7 +18,14 @@ perl -MFile::stat -MFile::Touch -e '
   )->touch(qw{/tmp/new.txt} )
 '
 
-stat -c %x /tmp/new.txt
+echo 
+echo ------
+echo 
 
-echo -n timestamp after ' '
+stat /tmp/new.txt
+
+echo -n access time after ' '
 stat -c %X /tmp/new.txt
+
+echo -n modification time after ' '
+stat -c %Y /tmp/new.txt
